@@ -1,7 +1,10 @@
 #pragma once
 #include <map>
-#include "Location.h"
 
+class Location;
+
+// Класс расписание агента
+// Содержит список локаций, которые посетит сегодня и время их посещения
 class PersonShedule
 {
 public:
@@ -10,5 +13,5 @@ public:
 
 	void addLocation(Location *location, double timeStart, double timeDuration);
 
-	std::map<double, Location *> m_shedule;
+	//std::map<double, Location *> m_shedule;
 };

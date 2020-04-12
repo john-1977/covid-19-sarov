@@ -1,5 +1,7 @@
 #include "Person.h"
 
+#include "Location.h"
+
 Person::Person()
 {
 }
@@ -14,30 +16,30 @@ void StayAtHome::generateShedule()
 	m_shedule.addLocation(m_home, 0, 24 * 60);
 }
 
-void VNIIEFEmployee::generateShedule()
+void OrganizationEmployee::generateShedule()
 {
 	m_shedule.addLocation(m_home, 0, 24 * 60);
-	m_shedule.addLocation(m_group, timeStartWorking, timeEndWorking - timeStartWorking); // работа
-	// поход к начальнику отдела
-	// поход в первый отдел
-	// поход в пункт ввода-вывода
-	// поход в столовую
+	m_shedule.addLocation(m_group, timeStartWorking, timeEndWorking - timeStartWorking); // СЂР°Р±РѕС‚Р°
+	// РїРѕС…РѕРґ Рє РЅР°С‡Р°Р»СЊРЅРёРєСѓ РѕС‚РґРµР»Р°
+	// РїРѕС…РѕРґ РІ Р°СЂС…РёРІ
+	// РїРѕС…РѕРґ РІ Р±РёР±Р»РёРѕС‚РµРєСѓ
+	// РїРѕС…РѕРґ РІ СЃС‚РѕР»РѕРІСѓСЋ
 }
 
-void FirstDepartmentEmployee::generateShedule()
+void ArchiveEmployee::generateShedule()
 {
 	m_shedule.addLocation(m_home, 0, 24 * 60);
-	m_shedule.addLocation(m_firstDepartment, timeStartWorking, timeEndWorking - timeStartWorking); // работа в первом отделе
+	m_shedule.addLocation(m_archive, timeStartWorking, timeEndWorking - timeStartWorking); // СЂР°Р±РѕС‚Р° РІ Р°СЂС…РёРІРµ
 }
 
-void InputOutputEmployee::generateShedule()
+void LibraryEmployee::generateShedule()
 {
 	m_shedule.addLocation(m_home, 0, 24 * 60);
-	m_shedule.addLocation(m_inputOutput, timeStartWorking, timeEndWorking - timeStartWorking); // работа в пункте ввода-вывода
+	m_shedule.addLocation(m_library, timeStartWorking, timeEndWorking - timeStartWorking); // СЂР°Р±РѕС‚Р° РІ Р±РёР±Р»РёРѕС‚РµРєРµ
 }
 
 void CanteenEmployee::generateShedule()
 {
 	m_shedule.addLocation(m_home, 0, 24 * 60);
-	m_shedule.addLocation(m_canteen, timeStartWorking, timeEndWorking - timeStartWorking); // работа в столовой
+	m_shedule.addLocation(m_canteen, timeStartWorking, timeEndWorking - timeStartWorking); // СЂР°Р±РѕС‚Р° РІ СЃС‚РѕР»РѕРІРѕР№
 }

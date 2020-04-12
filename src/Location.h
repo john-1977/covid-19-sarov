@@ -2,120 +2,120 @@
 #include "Person.h"
 #include <list>
 
-// Базовый класс Локаций
+// Р‘Р°Р·РѕРІС‹Р№ РєР»Р°СЃСЃ Р›РѕРєР°С†РёР№
 class Location
 {
 public:
     Location() {}
     ~Location() {}
 
-    double m_beta;		// коэффициент перехода от восприимчивого к инкубационному периоду
-    double m_alpha;		// коэффициент перехода от инкубационного периода к инфицированию
-    double m_gamma;		// коэффициент выздоровления
+    double m_beta;		// РєРѕСЌС„С„РёС†РёРµРЅС‚ РїРµСЂРµС…РѕРґР° РѕС‚ РІРѕСЃРїСЂРёРёРјС‡РёРІРѕРіРѕ Рє РёРЅРєСѓР±Р°С†РёРѕРЅРЅРѕРјСѓ РїРµСЂРёРѕРґСѓ
+    double m_alpha;		// РєРѕСЌС„С„РёС†РёРµРЅС‚ РїРµСЂРµС…РѕРґР° РѕС‚ РёРЅРєСѓР±Р°С†РёРѕРЅРЅРѕРіРѕ РїРµСЂРёРѕРґР° Рє РёРЅС„РёС†РёСЂРѕРІР°РЅРёСЋ
+    double m_gamma;		// РєРѕСЌС„С„РёС†РёРµРЅС‚ РІС‹Р·РґРѕСЂРѕРІР»РµРЅРёСЏ
 };
 
-// Локация дом - локация по умолчанию
+// Р›РѕРєР°С†РёСЏ РґРѕРј - Р»РѕРєР°С†РёСЏ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 class Home : public Location
 {
 public:
     Home() {}
     ~Home() {}
 
-    std::list<Person> m_personList;	// список членов семьи
+    std::list<Person> m_personList;	// СЃРїРёСЃРѕРє С‡Р»РµРЅРѕРІ СЃРµРјСЊРё
 };
 
-// Класс работа - базовый класс рабочего места
+// РљР»Р°СЃСЃ СЂР°Р±РѕС‚Р° - Р±Р°Р·РѕРІС‹Р№ РєР»Р°СЃСЃ СЂР°Р±РѕС‡РµРіРѕ РјРµСЃС‚Р°
 class Work : public Location
 {
 public:
     Work() {}
     ~Work() {}
 
-    std::list<Employee> m_employeeList;// список работников
+    std::list<Employee> m_employeeList;// СЃРїРёСЃРѕРє СЂР°Р±РѕС‚РЅРёРєРѕРІ
 };
 
-class VNIIEF : public Location
+class Organization : public Location
 {
 public:
-    VNIIEF() {}
-    ~VNIIEF() {}
+    Organization() {}
+    ~Organization() {}
 
     void addArea() {}
 
-    std::list<Area> m_areaList; // список площадок
+    std::list<Area> m_areaList; // СЃРїРёСЃРѕРє РїР»РѕС‰Р°РґРѕРє
 };
 
-// Класс площадка
+// РљР»Р°СЃСЃ РїР»РѕС‰Р°РґРєР°
 class Area : public Location
 {
 public:
     Area() {}
     ~Area() {}
 
-    void addFirstDepartment(FirstDepartment *firstDepartment) {}
-    void addInputOutput(InputOutput *inputOutput) {}
-    void addInputOutput(Canteen *canteen) {}
+    void addArchive(Archive *Archive) {}
+    void addLibrary(Library *library) {}
+    void addLibrary(Canteen *canteen) {}
 
-    FirstDepartment *m_firstDepartment;			// первый отдел
-    std::list<InputOutput> m_inputOutputArray;	// список пунктов ввода-вывода
-    Canteen *m_canteen;							// столовая
+    Archive *m_archive;			// Р°СЂС…РёРІ
+    std::list<Library> m_libraryArray;	// СЃРїРёСЃРѕРє Р±РёР±Р»РёРѕС‚РµРє
+    Canteen *m_canteen;							// СЃС‚РѕР»РѕРІР°СЏ
 };
 
-// Класс Первый отдел
-class FirstDepartment : public Work
+// РљР»Р°СЃСЃ РђСЂС…РёРІ
+class Archive : public Work
 {
 public:
-    FirstDepartment() {}
-    ~FirstDepartment() {}
+    Archive() {}
+    ~Archive() {}
 
-    Area *m_area; // площадка, к которой относится
+    Area *m_area; // РїР»РѕС‰Р°РґРєР°, Рє РєРѕС‚РѕСЂРѕР№ РѕС‚РЅРѕСЃРёС‚СЃСЏ
 };
 
-// Класс пункт ввода-вывода
-class InputOutput : public Work
+// РљР»Р°СЃСЃ Р±РёР±Р»РёРѕС‚РµРєР°
+class Library : public Work
 {
 public:
-    InputOutput() {}
-    ~InputOutput() {}
+    Library() {}
+    ~Library() {}
 
-    Area *m_area; // площадка, к которой относится
+    Area *m_area; // РїР»РѕС‰Р°РґРєР°, Рє РєРѕС‚РѕСЂРѕР№ РѕС‚РЅРѕСЃРёС‚СЃСЏ
 };
 
-// Класс Столовая
+// РљР»Р°СЃСЃ РЎС‚РѕР»РѕРІР°СЏ
 class Canteen : public Work
 {
 public:
     Canteen() {}
     ~Canteen() {}
 
-    Area *m_area; // площадка, к которой относится
+    Area *m_area; // РїР»РѕС‰Р°РґРєР°, Рє РєРѕС‚РѕСЂРѕР№ РѕС‚РЅРѕСЃРёС‚СЃСЏ
 };
 
-// Класс отдела
+// РљР»Р°СЃСЃ РѕС‚РґРµР»Р°
 class Department : public Work
 {
 public:
     Department() {}
     ~Department() {}
 
-    Area *m_area;					    // площадка, к которой относится
-    Employee *m_headOfDepartment;	    // начальник отдела
-    std::list<Group> m_groupList;       // список групп
+    Area *m_area;					    // РїР»РѕС‰Р°РґРєР°, Рє РєРѕС‚РѕСЂРѕР№ РѕС‚РЅРѕСЃРёС‚СЃСЏ
+    Employee *m_headOfDepartment;	    // РЅР°С‡Р°Р»СЊРЅРёРє РѕС‚РґРµР»Р°
+    std::list<Group> m_groupList;       // СЃРїРёСЃРѕРє РіСЂСѓРїРї
 };
 
-// Класс группы
+// РљР»Р°СЃСЃ РіСЂСѓРїРїС‹
 class Group : public Work
 {
 public:
     Group() {}
     ~Group() {}
 
-    // планерка
+    // РїР»Р°РЅРµСЂРєР°
     void meeting();
 
-    Department *m_department;           // отдел, к которому относится
-    Employee *m_headOfGroup;            // начальник
-    std::list<Employee> m_employeeList; // список подчиненных
-    double m_meetingProbability;        // вероятность планерки
-    double m_meetingDuration;           // длительность планерки
+    Department *m_department;           // РѕС‚РґРµР», Рє РєРѕС‚РѕСЂРѕРјСѓ РѕС‚РЅРѕСЃРёС‚СЃСЏ
+    Employee *m_headOfGroup;            // РЅР°С‡Р°Р»СЊРЅРёРє
+    std::list<Employee> m_employeeList; // СЃРїРёСЃРѕРє РїРѕРґС‡РёРЅРµРЅРЅС‹С…
+    double m_meetingProbability;        // РІРµСЂРѕСЏС‚РЅРѕСЃС‚СЊ РїР»Р°РЅРµСЂРєРё
+    double m_meetingDuration;           // РґР»РёС‚РµР»СЊРЅРѕСЃС‚СЊ РїР»Р°РЅРµСЂРєРё
 };

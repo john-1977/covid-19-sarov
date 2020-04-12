@@ -1,8 +1,10 @@
-#include "PersonShedule.h"
+п»ї#include "PersonShedule.h"
+
+#include "Location.h"
 
 void PersonShedule::addLocation(Location *location, double timeStart, double timeDuration)
 {
-	// добавить локацию в расписание
-	// по умолчанию локация дом 24/7
-	// например добавляется локация работа
+	// РґРѕР±Р°РІРёС‚СЊ Р»РѕРєР°С†РёСЋ РІ СЂР°СЃРїРёСЃР°РЅРёРµ
+	// РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ Р»РѕРєР°С†РёСЏ РґРѕРј 24/7
+	// РЅР°РїСЂРёРјРµСЂ РґРѕР±Р°РІР»СЏРµС‚СЃСЏ Р»РѕРєР°С†РёСЏ СЂР°Р±РѕС‚Р°
 }

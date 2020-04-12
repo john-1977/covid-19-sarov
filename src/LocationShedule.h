@@ -1,22 +1,10 @@
 #pragma once
 
 #include <list>
-#include "Location.h"
 
-// Класс расписание в локации
-// содержит список отрезков времени, внутри которых состав агентов в локации не менялся
-// внутри каждого такого отрезка происходит моделирование
-class LocationShedule
-{
-public:
-    LocationShedule() {}
-    ~LocationShedule() {}
+class Person;
 
-    void addPerson(Person *person, double timeStart, double timeDuration);
-
-    std::list<LocationSheduleSection> m_shedule; // <время начала отрезка, время конца отрезка, агенты>
-};
-
+// РљР»Р°СЃСЃ РѕС‚СЂРµР·РѕРє РІСЂРµРјРµРЅРё, РІРЅСѓС‚СЂРё РєРѕС‚РѕСЂС‹С… СЃРѕСЃС‚Р°РІ Р°РіРµРЅС‚РѕРІ РІ Р»РѕРєР°С†РёРё РЅРµ РјРµРЅСЏР»СЃСЏ
 class LocationSheduleSection
 {
 public:
@@ -25,4 +13,18 @@ public:
     double m_timeStart;
     double m_timeEnd;
     std::list<Person *> m_personList;
+};
+
+// РљР»Р°СЃСЃ СЂР°СЃРїРёСЃР°РЅРёРµ РІ Р»РѕРєР°С†РёРё РЅР° С‚РµРєСѓС‰РёР№ РґРµРЅСЊ РјРѕРґРµР»РёСЂРѕРІР°РЅРёСЏ
+// СЃРѕРґРµСЂР¶РёС‚ СЃРїРёСЃРѕРє РѕС‚СЂРµР·РєРѕРІ РІСЂРµРјРµРЅРё, РІРЅСѓС‚СЂРё РєРѕС‚РѕСЂС‹С… СЃРѕСЃС‚Р°РІ Р°РіРµРЅС‚РѕРІ РІ Р»РѕРєР°С†РёРё РЅРµ РјРµРЅСЏР»СЃСЏ
+// РІРЅСѓС‚СЂРё РєР°Р¶РґРѕРіРѕ С‚Р°РєРѕРіРѕ РѕС‚СЂРµР·РєР° РїСЂРѕРёСЃС…РѕРґРёС‚ РјРѕРґРµР»РёСЂРѕРІР°РЅРёРµ
+class LocationShedule
+{
+public:
+    LocationShedule() {}
+    ~LocationShedule() {}
+
+    void addPerson(Person *person, double timeStart, double timeDuration);
+
+    std::list<LocationSheduleSection> m_shedule; // <РІСЂРµРјСЏ РЅР°С‡Р°Р»Р° РѕС‚СЂРµР·РєР°, РІСЂРµРјСЏ РєРѕРЅС†Р° РѕС‚СЂРµР·РєР°, Р°РіРµРЅС‚С‹>
 };

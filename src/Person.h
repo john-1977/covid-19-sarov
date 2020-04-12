@@ -1,24 +1,30 @@
 #pragma once
-#include "Location.h"
 #include "PersonShedule.h"
 #include "SEIR_model.h"
 
-// Базовый класс агента, имеет расписание на день, текущее состояние
+class Location;
+class Area;
+class Group;
+class Archive;
+class Library;
+class Canteen;
+
+// Р‘Р°Р·РѕРІС‹Р№ РєР»Р°СЃСЃ Р°РіРµРЅС‚Р°, РёРјРµРµС‚ СЂР°СЃРїРёСЃР°РЅРёРµ РЅР° РґРµРЅСЊ, С‚РµРєСѓС‰РµРµ СЃРѕСЃС‚РѕСЏРЅРёРµ
 class Person
 {
 public:
 	Person();
 	~Person() {}
 
-	virtual void generateShedule() {}	// генерация расписания рабочего дня
-	void generateDayOffShedule();		// генерация расписания выходного дня
+	virtual void generateShedule() {}	// РіРµРЅРµСЂР°С†РёСЏ СЂР°СЃРїРёСЃР°РЅРёСЏ СЂР°Р±РѕС‡РµРіРѕ РґРЅСЏ
+	void generateDayOffShedule();		// РіРµРЅРµСЂР°С†РёСЏ СЂР°СЃРїРёСЃР°РЅРёСЏ РІС‹С…РѕРґРЅРѕРіРѕ РґРЅСЏ
 
-	SEIR_State m_state;			// состояние по SEIR-модели
-	Location *m_home;			// локация по-умолчанию
-	PersonShedule m_shedule;	// расписание на день
+	SEIR_State m_state;			// СЃРѕСЃС‚РѕСЏРЅРёРµ РїРѕ SEIR-РјРѕРґРµР»Рё
+	Location *m_home;			// Р»РѕРєР°С†РёСЏ РїРѕ-СѓРјРѕР»С‡Р°РЅРёСЋ
+	PersonShedule m_shedule;	// СЂР°СЃРїРёСЃР°РЅРёРµ РЅР° РґРµРЅСЊ
 };
 
-// Класс домосед - сидит дома 24/7
+// РљР»Р°СЃСЃ РґРѕРјРѕСЃРµРґ - СЃРёРґРёС‚ РґРѕРјР° 24/7
 class StayAtHome : public Person
 {
 public:
@@ -28,7 +34,7 @@ public:
 	void generateShedule();
 };
 
-// Класс работник, имеет время прихода на работу и ухода с работы
+// РљР»Р°СЃСЃ Р°Р±СЃС‚СЂР°РєС‚РЅС‹Р№ СЂР°Р±РѕС‚РЅРёРє, РёРјРµРµС‚ РІСЂРµРјСЏ РїСЂРёС…РѕРґР° РЅР° СЂР°Р±РѕС‚Сѓ Рё СѓС…РѕРґР° СЃ СЂР°Р±РѕС‚С‹
 class Employee : public Person
 {
 public:
@@ -37,64 +43,64 @@ public:
 
 	virtual void generateShedule() {}
 
-	double timeStartWorking;	// время прихода на работу
-	double timeEndWorking;		// время ухода с работы
+	double timeStartWorking;	// РІСЂРµРјСЏ РїСЂРёС…РѕРґР° РЅР° СЂР°Р±РѕС‚Сѓ
+	double timeEndWorking;		// РІСЂРµРјСЏ СѓС…РѕРґР° СЃ СЂР°Р±РѕС‚С‹
 };
 
-// Класс работник ВНИИЭФ
-// относится к своей группе (она относится к отделу и т.д.)
-// может ходить к начальнику отдела, в первый отдел, в пункт ввода-вывода, в столовую
-class VNIIEFEmployee : public Employee
+// РљР»Р°СЃСЃ СЂР°Р±РѕС‚РЅРёРє РѕСЂРіР°РЅРёР·Р°С†РёРё
+// РѕС‚РЅРѕСЃРёС‚СЃСЏ Рє СЃРІРѕРµР№ РіСЂСѓРїРїРµ (РѕРЅР° РѕС‚РЅРѕСЃРёС‚СЃСЏ Рє РѕС‚РґРµР»Сѓ Рё С‚.Рґ.)
+// РјРѕР¶РµС‚ С…РѕРґРёС‚СЊ Рє РЅР°С‡Р°Р»СЊРЅРёРєСѓ РѕС‚РґРµР»Р°, РІ Р°СЂС…РёРІ, РІ Р±РёР±Р»РёРѕС‚РµРєСѓ, РІ СЃС‚РѕР»РѕРІСѓСЋ
+class OrganizationEmployee : public Employee
 {
 public:
-	VNIIEFEmployee() {}
-	~VNIIEFEmployee() {}
+	OrganizationEmployee() {}
+	~OrganizationEmployee() {}
 
 	virtual void generateShedule();
 
-	Group *m_group;							// группа, к которой относится
-	double m_headOfDepartmentProbability;	// вероятность пойти к начальнику отдела
-	double m_headOfDepartmentTime;			// время посещения начальника отдела
-	double m_FirstDepartmentProbability;	// вероятность пойти в первый отдел
-	double m_FirstDepartmentTime;			// время посещения первого отдела
-	double m_inputOutputProbability;		// вероятность пойти в пункт ввода-вывода
-	double m_inputOutputTime;				// время посещения пункта ввода-вывода
-	double m_canteenProbability;			// вероятность пойти в столовую
-	double m_canteenTime;					// время посещения столовой
+	Group *m_group;							// РіСЂСѓРїРїР°, Рє РєРѕС‚РѕСЂРѕР№ РѕС‚РЅРѕСЃРёС‚СЃСЏ
+	double m_headOfDepartmentProbability;	// РІРµСЂРѕСЏС‚РЅРѕСЃС‚СЊ РїРѕР№С‚Рё Рє РЅР°С‡Р°Р»СЊРЅРёРєСѓ РѕС‚РґРµР»Р°
+	double m_headOfDepartmentTime;			// РІСЂРµРјСЏ РїРѕСЃРµС‰РµРЅРёСЏ РЅР°С‡Р°Р»СЊРЅРёРєР° РѕС‚РґРµР»Р°
+	double m_archiveProbability;	        // РІРµСЂРѕСЏС‚РЅРѕСЃС‚СЊ РїРѕР№С‚Рё РІ Р°СЂС…РёРІ
+	double m_archiveTime;			        // РІСЂРµРјСЏ РїРѕСЃРµС‰РµРЅРёСЏ Р°СЂС…РёРІР°
+	double m_libraryProbability;		    // РІРµСЂРѕСЏС‚РЅРѕСЃС‚СЊ РїРѕР№С‚Рё РІ Р±РёР±Р»РёРѕС‚РµРєСѓ
+	double m_libraryTime;				    // РІСЂРµРјСЏ РїРѕСЃРµС‰РµРЅРёСЏ Р±РёР±Р»РёРѕС‚РµРєРё
+	double m_canteenProbability;			// РІРµСЂРѕСЏС‚РЅРѕСЃС‚СЊ РїРѕР№С‚Рё РІ СЃС‚РѕР»РѕРІСѓСЋ
+	double m_canteenTime;					// РІСЂРµРјСЏ РїРѕСЃРµС‰РµРЅРёСЏ СЃС‚РѕР»РѕРІРѕР№
 };
 
-// Класс работник первого отдела
-// относится к своему первому отделу
-// может ходить в столовую
-// ходит в пункт ввода-вывода?
-class FirstDepartmentEmployee : public VNIIEFEmployee
+// РљР»Р°СЃСЃ СЂР°Р±РѕС‚РЅРёРє Р°СЂС…РёРІР°
+// РѕС‚РЅРѕСЃРёС‚СЃСЏ Рє СЃРІРѕРµРјСѓ РїРµСЂРІРѕРјСѓ РѕС‚РґРµР»Сѓ
+// РјРѕР¶РµС‚ С…РѕРґРёС‚СЊ РІ СЃС‚РѕР»РѕРІСѓСЋ
+// С…РѕРґРёС‚ РІ Р±РёР±Р»РёРѕС‚РµРєСѓ?
+class ArchiveEmployee : public OrganizationEmployee
 {
 public:
-	FirstDepartmentEmployee() {}
-	~FirstDepartmentEmployee() {}
+	ArchiveEmployee() {}
+	~ArchiveEmployee() {}
 
 	virtual void generateShedule();
 
-	FirstDepartment *m_firstDepartment;	// первый отдел, к которому относится
+	Archive *m_archive;	// Р°СЂС…РёРІ, Рє РєРѕС‚РѕСЂРѕРјСѓ РѕС‚РЅРѕСЃРёС‚СЃСЏ
 };
 
-// Класс работник пункта ввода-вывода
-// относится к своему пункту ввода-вывода
-// может ходить в столовую
-// ходит в первый отдел?
-class InputOutputEmployee : public VNIIEFEmployee
+// РљР»Р°СЃСЃ СЂР°Р±РѕС‚РЅРёРє Р±РёР±Р»РёРѕС‚РµРєРё
+// РѕС‚РЅРѕСЃРёС‚СЃСЏ Рє СЃРІРѕРµР№ Р±РёР±Р»РёРѕС‚РµРєРµ
+// РјРѕР¶РµС‚ С…РѕРґРёС‚СЊ РІ СЃС‚РѕР»РѕРІСѓСЋ
+// С…РѕРґРёС‚ РІ Р°СЂС…РёРІ?
+class LibraryEmployee : public OrganizationEmployee
 {
 public:
-	InputOutputEmployee() {}
-	~InputOutputEmployee() {}
+	LibraryEmployee() {}
+	~LibraryEmployee() {}
 
 	virtual void generateShedule();
 
-	InputOutput *m_inputOutput;	// пункт ввода-вывода, к которому относится
+	Library *m_library;	// Р±РёР±Р»РёРѕС‚РµРєР°, Рє РєРѕС‚РѕСЂРѕРјСѓ РѕС‚РЅРѕСЃРёС‚СЃСЏ
 };
 
-// Класс работник столовой
-// относится к своей столовой
+// РљР»Р°СЃСЃ СЂР°Р±РѕС‚РЅРёРє СЃС‚РѕР»РѕРІРѕР№
+// РѕС‚РЅРѕСЃРёС‚СЃСЏ Рє СЃРІРѕРµР№ СЃС‚РѕР»РѕРІРѕР№
 class CanteenEmployee : public Employee
 {
 public:
@@ -103,5 +109,5 @@ public:
 
 	virtual void generateShedule();
 
-	Canteen *m_canteen;	// столовая, к которой относится
+	Canteen *m_canteen;	// СЃС‚РѕР»РѕРІР°СЏ, Рє РєРѕС‚РѕСЂРѕР№ РѕС‚РЅРѕСЃРёС‚СЃСЏ
 };
