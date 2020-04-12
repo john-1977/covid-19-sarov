@@ -1,5 +1,7 @@
 #include "Location.h"
 
+#include "Person.h"
+
 void Group::meeting()
 {
 	// по вероятности планерки проверяем, будет ли сегодня планерка

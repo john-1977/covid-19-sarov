@@ -1,6 +1,8 @@
 #pragma once
 
 #include <list>
+#include <vector>
+#include <tuple>
 
 class Person;
 
@@ -24,7 +26,14 @@ public:
     LocationShedule() {}
     ~LocationShedule() {}
 
-    void addPerson(Person *person, double timeStart, double timeDuration);
+    // Добавить агента в расписание
+    void addPerson(Person *person, double timeStart, double timeEnd);
 
-    std::list<LocationSheduleSection> m_shedule; // <время начала отрезка, время конца отрезка, агенты>
+    // Составить расписание, после добавления всех агентов
+    void generate();
+
+    std::list<LocationSheduleSection> m_sectionList; // список отрезков времени, внутри которых состав агентов в локации не менялся
+
+private:
+    std::vector<std::tuple<Person *, double, double>> m_rawData;
 };

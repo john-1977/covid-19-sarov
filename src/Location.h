@@ -1,17 +1,31 @@
 #pragma once
-#include "Person.h"
+
 #include <list>
+
+#include "LocationShedule.h"
+
+class Person;
+class Employee;
+
+class Area;
+class Group;
+class Archive;
+class Library;
+class Canteen;
+
 
 // Базовый класс Локаций
 class Location
 {
 public:
     Location() {}
-    ~Location() {}
+    virtual ~Location() {}
 
     double m_beta;		// коэффициент перехода от восприимчивого к инкубационному периоду
     double m_alpha;		// коэффициент перехода от инкубационного периода к инфицированию
     double m_gamma;		// коэффициент выздоровления
+
+    LocationShedule m_locationShedule;
 };
 
 // Локация дом - локация по умолчанию
@@ -21,7 +35,7 @@ public:
     Home() {}
     ~Home() {}
 
-    std::list<Person> m_personList;	// список членов семьи
+    std::list<Person *> m_personList;	// список членов семьи
 };
 
 // Класс работа - базовый класс рабочего места
@@ -29,9 +43,9 @@ class Work : public Location
 {
 public:
     Work() {}
-    ~Work() {}
+    virtual ~Work() {}
 
-    std::list<Employee> m_employeeList;// список работников
+    std::list<Employee *> m_employeeList;// список работников
 };
 
 class Organization : public Location
@@ -42,7 +56,7 @@ public:
 
     void addArea() {}
 
-    std::list<Area> m_areaList; // список площадок
+    std::list<Area *> m_areaList; // список площадок
 };
 
 // Класс площадка
@@ -57,7 +71,7 @@ public:
     void addLibrary(Canteen *canteen) {}
 
     Archive *m_archive;			// архив
-    std::list<Library> m_libraryArray;	// список библиотек
+    std::list<Library *> m_libraryArray;	// список библиотек
     Canteen *m_canteen;							// столовая
 };
 
@@ -100,7 +114,7 @@ public:
 
     Area *m_area;					    // площадка, к которой относится
     Employee *m_headOfDepartment;	    // начальник отдела
-    std::list<Group> m_groupList;       // список групп
+    std::list<Group *> m_groupList;       // список групп
 };
 
 // Класс группы
@@ -115,7 +129,7 @@ public:
 
     Department *m_department;           // отдел, к которому относится
     Employee *m_headOfGroup;            // начальник
-    std::list<Employee> m_employeeList; // список подчиненных
+    std::list<Employee *> m_employeeList; // список подчиненных
     double m_meetingProbability;        // вероятность планерки
     double m_meetingDuration;           // длительность планерки
 };

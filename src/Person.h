@@ -14,14 +14,20 @@ class Person
 {
 public:
 	Person();
-	~Person() {}
+	virtual ~Person() {}
 
-	virtual void generateShedule() {}	// генерация расписания рабочего дня
-	void generateDayOffShedule();		// генерация расписания выходного дня
+    // генерация расписания рабочего дня
+	virtual void generateShedule() {}	
 
-	SEIR_State m_state;			// состояние по SEIR-модели
-	Location *m_home;			// локация по-умолчанию
-	PersonShedule m_shedule;	// расписание на день
+    // генерация расписания выходного дня
+	void generateDayOffShedule();
+
+    // Сообщить локации о своем присутствии сегодня
+    void notifyLocations();             
+
+	SEIR_State m_state;			        // состояние по SEIR-модели
+	Location *m_home;			        // локация по-умолчанию
+	PersonShedule m_shedule;	        // расписание на день
 };
 
 // Класс домосед - сидит дома 24/7
@@ -29,7 +35,7 @@ class StayAtHome : public Person
 {
 public:
 	StayAtHome() {}
-	~StayAtHome() {}
+    ~StayAtHome() {}
 
 	void generateShedule();
 };
@@ -39,12 +45,12 @@ class Employee : public Person
 {
 public:
 	Employee() {}
-	~Employee() {}
+    virtual ~Employee() {}
 
 	virtual void generateShedule() {}
 
-	double timeStartWorking;	// время прихода на работу
-	double timeEndWorking;		// время ухода с работы
+	double timeStartWorkingInSeconds;	// время прихода на работу в секундах с начала дня
+	double timeEndWorkingInSeconds;		// время ухода с работы в секундах с начала дня
 };
 
 // Класс работник организации
@@ -54,7 +60,7 @@ class OrganizationEmployee : public Employee
 {
 public:
 	OrganizationEmployee() {}
-	~OrganizationEmployee() {}
+    virtual ~OrganizationEmployee() {}
 
 	virtual void generateShedule();
 
