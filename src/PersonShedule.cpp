@@ -8,6 +8,11 @@ void PersonShedule::addLocation(Location *location, double timeStartInSeconds, d
     m_sectionList.push_back(PersonSheduleSection(location, timeStartInSeconds, timeEndInSeconds));
 }
 
+void PersonShedule::clear()
+{
+    m_sectionList.clear();
+}
+
 PersonSheduleSection::PersonSheduleSection(Location *location, double timeStartInSeconds, double timeEndInSeconds)
 {
     m_location = location;

@@ -16,6 +16,10 @@ public:
     // Добавить локацию в которой агент находился с timeStart по timeEnd, уже готовое расписание, без пересечений
 	void addLocation(Location *location, double timeStartInSeconds, double timeEndInSeconds);
 
+    // очистить расписание
+    void clear();
+
+public:
 	std::vector<PersonSheduleSection> m_sectionList; // список отрезков
 };
 

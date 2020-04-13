@@ -54,3 +54,9 @@ void LocationShedule::generate()
         }
     }
 }
+
+void LocationShedule::clear()
+{
+    m_rawData.clear();
+    m_sectionList.clear();
+}

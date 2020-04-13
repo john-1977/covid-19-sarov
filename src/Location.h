@@ -18,9 +18,19 @@ class Canteen;
 class Location
 {
 public:
-    Location() {}
+    Location();
     virtual ~Location() {}
 
+    // имеет ли среди агентов распространителей
+    bool hasEIRPerson();
+
+    // Моделирование распространения в данной локации на сегодняшний день
+    void seirModelling();
+
+    // Моделирование контакта source-target
+    void modelContact(Person *source, Person *target);
+
+public:
     double m_beta;		// коэффициент перехода от восприимчивого к инкубационному периоду
     double m_alpha;		// коэффициент перехода от инкубационного периода к инфицированию
     double m_gamma;		// коэффициент выздоровления
@@ -32,7 +42,7 @@ public:
 class Home : public Location
 {
 public:
-    Home() {}
+    Home();
     ~Home() {}
 
     std::list<Person *> m_personList;	// список членов семьи

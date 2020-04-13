@@ -21,6 +21,35 @@ void Person::notifyLocations()
     }
 }
 
+void Person::checkState()
+{
+
+}
+
+// изменить состояние на "Контактный"
+void Person::setExposed(Person *source, int dayNumber, double time)
+{
+    m_state = Exposed;
+}
+
+// изменить состояние на "Инфицированный"
+void Person::setInfectious(int dayNumber, double time)
+{
+    m_state = Infectious;
+}
+
+// изменить состояние на "Выздоровевший"
+void Person::setRecovered(int dayNumber, double time)
+{
+    m_state = Recovered;
+}
+
+// изменить состояние на "Умерший"
+void Person::setDead(int dayNumber, double time)
+{
+    m_state = Dead;
+}
+
 void StayAtHome::generateShedule()
 {
 	m_shedule.addLocation(m_home, 0, 24 * 60 * 60);

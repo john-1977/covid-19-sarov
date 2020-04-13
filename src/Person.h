@@ -23,8 +23,24 @@ public:
 	void generateDayOffShedule();
 
     // Сообщить локации о своем присутствии сегодня
-    void notifyLocations();             
+    void notifyLocations();
 
+    // Проверить состояние на сегодняшний день
+    virtual void checkState();
+
+    // изменить состояние на "Контактный"
+    virtual void setExposed(Person *source, int dayNumber, double time);
+
+    // изменить состояние на "Инфицированный"
+    virtual void setInfectious(int dayNumber, double time);
+
+    // изменить состояние на "Выздоровевший"
+    virtual void setRecovered(int dayNumber, double time);
+
+    // изменить состояние на "Умерший"
+    virtual void setDead(int dayNumber, double time);
+
+public:
 	SEIR_State m_state;			        // состояние по SEIR-модели
 	Location *m_home;			        // локация по-умолчанию
 	PersonShedule m_shedule;	        // расписание на день

@@ -32,6 +32,10 @@ public:
     // Составить расписание, после добавления всех агентов
     void generate();
 
+    // очистить расписание
+    void clear();
+
+public:
     std::list<LocationSheduleSection> m_sectionList; // список отрезков времени, внутри которых состав агентов в локации не менялся
 
 private:
